@@ -1,3 +1,10 @@
 Data format:
+
 year.hiveID.csv
-month, day, hour, weight, temp, 
+
+time, weight, temp, humidity
+
+communication format
+id,weight,temp,humidity
+IWTH\nIWTH\n.....
+each character is a byte (255)
