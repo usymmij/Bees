@@ -25,16 +25,15 @@ def main():
     client.sendData(hiveStatus)
     #machine.deepsleep(SLEEP_TIME) # wait for next read cycle
 
+def getIds():return[0,2,4,6,8];
+def printAddMess(add,mess):print(f'address:{add}, command:{mess}')
+def printAdd(add):print(f'read from{add}')
 def testStatus():
     pycom.rgbled(0x0A0000)
     time.sleep(1)
-    hiveStatus = status.run(lambda:[0,2,4,6,8],
-        lambda add,mess:print(f'address:{add}, command:{mess}'), 
-        lambda add:print(f'read from{add}'))
+    hiveStatus = status.run(getIds,printAddMess,printAdd)
 
 if __name__ == "__main__":
     #main()
-    hi=1
     testStatus()
-    hi=2
     pass

@@ -9,6 +9,9 @@ KG_TO_POUNDS = 2.205
 commands = [0,1,2]
 hiveStatus = [] # 4xN array of [id,weight,temp,humidity] lists
 
+def writeData():
+    hiveStatus[next(dev)].append(int.frombytes(data,'little'))
+
 # run this every interval
 def run(scanBus, write, read):
     devs = devList(scanBus) # scan
@@ -19,9 +22,7 @@ def run(scanBus, write, read):
         time.sleep(1) # pause for sensor readings 
         dev = iter(range(len(devs))) # create iter
         collect(read, devs, # collect sensor data, save to hiveStatus
-            lambda data: 
-                hiveStatus[next(dev)].append(int.frombytes(data,'little'))
-                )
+            writeData)# no lambdas in 3.4 :((
     pycom.rgbled(0x00AA00) # Green on success!
     return hiveStatus
     
