@@ -9,8 +9,7 @@ import time
 SLEEP_TIME = 1000*60*1
 hiveStatus= None
 p8 = Pin('P8', mode=Pin.OUT)
-p8.value(1)
-m.sleep(3000,True)
+p8.value(0)
 
 def main():
     global hiveStatus
@@ -18,6 +17,10 @@ def main():
 
     pycom.rgbled(0x0A000A) # pink on data collection
     try:
+
+        p8.value(1)
+        m.sleep(3000,True)
+        pycom.rgbled(0xA00A0A) # pink on data collection
         hiveStatus=status.run(i2c.scan,i2c.writeto, i2c.readfrom)
     except:
         pycom.rgbled(0x0A0A0A) # white failure
@@ -34,9 +37,10 @@ def main():
     #client = upload.uploadClient()
     #client.setup()
     #client.sendData(hiveStatus)
-    p8.hold(True)
+    #p8.hold(True)
     pycom.rgbled(0x000000) # turn off when idle
-    time.sleep_ms(SLEEP_TIME)
+    time.sleep(30)
+    m.reset()
     #m.deepsleep(SLEEP_TIME) # wait for next read cycle
 
 def tryStatus():
@@ -73,4 +77,3 @@ def testUpload():
 if __name__ == "__main__":
     main()
     #testStatus()
-    pass

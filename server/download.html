@@ -2,8 +2,33 @@
 <a href="/index.html">
     <input type="button" value="home"></input>
   </a><br>
+  <h1>
 Enter the year to download<br>
+</h1>
 <form>
-    <input type="text" id="yearInput" name="year">
+    <input type="text" id="yearInput" value=""" name="year">
     <input type="submit">
 </form>
+<script>
+  hi = new Date()
+  document.getElementById("yearInput").value=hi.getFullYear()
+</script>
+<style>
+  body {
+    background-color: rgb(0, 0, 0);
+  }
+
+  h1 {
+    color: white;
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+  }
+  
+  form {
+    color: white;
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    text-align: center;
+  }
+  </style>

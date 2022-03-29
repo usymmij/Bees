@@ -27,6 +27,7 @@ http.createServer(function (req, res) {
         return res.end();
       }
       try {
+        exec('rm data.zip')
         exec('zip -r data.zip data/ -i data/'+q.query.year+'*.csv', (err, stdout, stderr) => {
           if (err) {
             console.log('failed to zip file');
@@ -87,12 +88,12 @@ function buildIndex() {
     let time = new Date(lastData[0]*1000);
     time = convertTZ(time, "America/Toronto")
     let data1 = "Hive "+id+" at "+time.toLocaleString();
-    let data2= lastData[1]+" lb(s),\t"+lastData[2]+" C, \t"+lastData[3]+"% humidity";
-    out += "const node"+id+" = document.createElement('p');\n";
+    let data2= lastData[1]+" lbs,\t"+lastData[2]+" C, \t"+lastData[3]+"% humidity";
+    out += "const node"+id+" = document.createElement('h1');\n";
     out+= "const textnode"+id+" = document.createTextNode('"+data1+"');\n";
     out+="node"+id+".appendChild(textnode"+id+")\n"
 
-    out += "const info"+id+" = document.createElement('p');\n";
+    out += "const info"+id+" = document.createElement('h2');\n";
     out+= "const textinfo"+id+" = document.createTextNode('"+data2+"');\n";
     out+="info"+id+".appendChild(textinfo"+id+")\n"
     out += "document.getElementById('currentinfo').appendChild(node"+id+")\n";

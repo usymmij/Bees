@@ -32,7 +32,7 @@ def run(scanBus, write, read):
         print("command "+str(i))
         command(write, devs, commands[i]) # give pico sensor commands
         print("command done")
-        time.sleep(1) # pause for sensor readings 
+        machine.sleep(3000,True) # pause for sensor readings 
         print("paused")
         dev = iter(range(len(devs))) # create iter
         print("created iter")
