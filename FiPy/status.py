@@ -9,20 +9,36 @@ KG_TO_POUNDS = 2.205
 commands = [0,1,2]
 hiveStatus = [] # 4xN array of [id,weight,temp,humidity] lists
 
-def writeData():
-    hiveStatus[next(dev)].append(int.frombytes(data,'little'))
+def writeData(dev,data):
+    global hiveStatus
+    it = next(dev)
+    print("writing "+str(data)+ " to "+str(it))
+    print(ord(data))
+    hiveStatus[it].append(ord(data))
+    print(ord(data))
 
 # run this every interval
 def run(scanBus, write, read):
+    global hiveStatus
+    hiveStatus=[]
     devs = devList(scanBus) # scan
+    print("device list: ",end='')
+    print(devs)
     for dev in devs:
         hiveStatus.append([dev])
+    print('status list init: ',end='')
+    print(hiveStatus)
     for i in range(3):
+        print("command "+str(i))
         command(write, devs, commands[i]) # give pico sensor commands
+        print("command done")
         time.sleep(1) # pause for sensor readings 
+        print("paused")
         dev = iter(range(len(devs))) # create iter
-        collect(read, devs, # collect sensor data, save to hiveStatus
+        print("created iter")
+        collect(read, devs, dev,# collect sensor data, save to hiveStatus
             writeData)# no lambdas in 3.4 :((
+        print("collected data")
     pycom.rgbled(0x00AA00) # Green on success!
     return hiveStatus
     
@@ -30,15 +46,13 @@ def run(scanBus, write, read):
 # send command
 def command(write, devs, cmd):
     for dev in devs:
-        packet = []
-        for ch in cmd:
-            packet.append(ord(ch))
-        write(dev, bytes(packet))
+        write(dev, bytes([cmd]))
 
 # collect sensor readings
-def collect(read, devs, dataRecip):
+def collect(read, devs,devIt,dataRecip):
     for dev in devs:
-        dataRecip(read(dev,4))
+        print("collecting for device "+str(dev))
+        dataRecip(devIt,read(dev,1))
 
 # scan devices
 def devList(scan):

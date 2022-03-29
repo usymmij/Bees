@@ -1,10 +1,11 @@
 import socket
+import sys
 import time
 import csv
 import datetime 
 import os.path
 
-HOST = "127.0.0.1" 
+HOST = '192.168.4.2'
 PORT = 6500
 
 def tcpserver():
@@ -75,4 +76,8 @@ def save(hives):
 
     
 if __name__ == "__main__":
-    tcpserver();
+    time.sleep(0.25)
+    if len(sys.argv) > 1:
+        HOST = sys.argv[1]
+    print(HOST)
+    tcpserver()

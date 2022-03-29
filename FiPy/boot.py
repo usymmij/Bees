@@ -2,8 +2,9 @@ from network import Server
 import pycom
 import time
 from network import WLAN
-from machine import Pin
-exitPin = Pin('P23', mode = Pin.IN)
+import machine
+from network import LTE
+from network import Bluetooth
 
 pycom.heartbeat(False)
 
@@ -16,3 +17,9 @@ pycom.wifi_pwd_ap('')
 pycom.rgbled(0x0A0A00)
 
 server = Server(login=('b', 'ee'), timeout=300)
+
+lte = LTE()
+lte.deinit()
+bluetooth = Bluetooth()
+bluetooth.deinit()
+machine.pygate_deinit()
