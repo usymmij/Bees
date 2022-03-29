@@ -5,14 +5,27 @@ import socket
 from network import WLAN
 HOST = "192.168.4.2"  # The server's hostname or IP address
 PORT = 6500  # The port used by the server
-def send(data):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
-        ret = b'F'
-        while(ret==b'F'):
-            s.sendall(data.encode('utf-8'))
-            ret = s.recv(1)
 
+def send(data):
+    message = ''
+    for i in range(len(data)):
+        hiveDat='\n'
+        hiveDat += chr(data[i][0])
+        hiveDat += chr(data[i][1])
+        hiveDat += chr(data[i][2])
+        hiveDat += chr(data[i][3])
+        message += hiveDat
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.connect((HOST, PORT))
+    except OSError as e:
+        pass
+    ret = b'F'
+    while(ret==b'F'):
+        s.sendall(message.encode('utf-8'))
+        ret = s.recv(1)
+
+# not doing lte stuff for now, since server is unable to be port forwarded
 #class uploadClient:
 #    def send(self,data):
 #        try:

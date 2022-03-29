@@ -14,12 +14,7 @@ pycom.wifi_on_boot(True)
 pycom.wifi_mode_on_boot(WLAN.AP)
 pycom.wifi_ssid_ap('bhive')
 pycom.wifi_pwd_ap('')
-pycom.rgbled(0x0A0A00)
 
 server = Server(login=('b', 'ee'), timeout=300)
 
-lte = LTE()
-lte.deinit()
-bluetooth = Bluetooth()
-bluetooth.deinit()
-machine.pygate_deinit()
+pycom.rgbled(0x0A000A)

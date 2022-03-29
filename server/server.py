@@ -64,7 +64,7 @@ def save(hives):
     for hive in hives:
         formatted = [int(time.time()), (hive[1]),(hive[2]),(hive[3])]
         save_loc = './data/'
-        save_loc += str(now.year)+"."+str(hive[0])+".csv"
+        save_loc += str(now.year)+"."+str(hive[0]-7)+".csv"
         print(save_loc)
         if False == os.path.exists(save_loc):
             f = open(save_loc, "w")

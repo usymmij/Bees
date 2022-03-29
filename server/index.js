@@ -86,8 +86,8 @@ function buildIndex() {
     lastData = rows[rows.length-1];
     let time = new Date(lastData[0]*1000);
     time = convertTZ(time, "America/Toronto")
-    let data1 = "Hive "+(id-7)+" at "+time.toLocaleString();
-    let data2= lastData[1]+" kg,\t"+lastData[2]+" C, \t"+lastData[3]+"%";
+    let data1 = "Hive "+id+" at "+time.toLocaleString();
+    let data2= lastData[1]+" lb(s),\t"+lastData[2]+" C, \t"+lastData[3]+"% humidity";
     out += "const node"+id+" = document.createElement('p');\n";
     out+= "const textnode"+id+" = document.createTextNode('"+data1+"');\n";
     out+="node"+id+".appendChild(textnode"+id+")\n"
