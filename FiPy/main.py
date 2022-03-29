@@ -35,6 +35,7 @@ def main():
     #client.setup()
     #client.sendData(hiveStatus)
     p8.hold(True)
+    pycom.rgbled(0x000000) # turn off when idle
     time.sleep_ms(SLEEP_TIME)
     #m.deepsleep(SLEEP_TIME) # wait for next read cycle
 
